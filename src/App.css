@@ -29,17 +29,27 @@ li {
   flex-flow: column wrap;
 
 }
-img {
+.footer {
+  background-color: #E8E8E8;
+  width: 90%;
+  margin: auto;
+}
+.picture {
   margin: 10px;
+
 }
 
+.profile-picture {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: inline-block;
+}
+.star {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: inline-block;
 
 
-
-
-
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }

@@ -9,7 +9,6 @@ import { Provider } from "react-redux";
 import { loadImages } from "./actions/Images";
 debugger;
 let store = createStore(Images, devsToolsEnhancer());
-loadImages();
 const App = () => (
   <Provider store={store}>
     <Router>
@@ -17,7 +16,7 @@ const App = () => (
         <div className="App-header">
           <h2>Welcome to Pinterest-clone</h2>
         </div>
-        <Route exact path="/" component={Home} onEnter={loadImages} />
+        <Route exact path="/" component={Home} />
       </div>
     </Router>
   </Provider>

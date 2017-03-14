@@ -1,8 +1,8 @@
-import { ADD_IMAGE, LOAD_IMAGES, REMOVE_IMAGE } from "../actions/images";
+import { ADD_IMAGE, LOAD_IMAGES, REMOVE_IMAGE } from "../actions/Images";
 function Images(state = [], action) {
   switch (action.type) {
     case LOAD_IMAGES:
-      [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => ({
+      return [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => ({
         link: `http://lorempicsum.com/futurama/255/200/${i}`,
         like: i,
         owner: `me`,

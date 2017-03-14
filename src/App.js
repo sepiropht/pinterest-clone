@@ -1,30 +1,26 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./App.css";
-import Image from "./components/Image";
-
-const Images = [1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => (
-  <li key={i}>
-    <Image img={`http://lorempicsum.com/futurama/255/200/${i}`} alt="img" />
-  </li>
-));
-
-const Home = () => (
-  <div className="App">
-    <div className="App-header">
-      <h2>Welcome to Pinterest-clone</h2>
-    </div>
-
-    <div className="container">
-      <ul>{Images}</ul>
-    </div>
-
-  </div>
-);
+import Home from "./components/Home";
+import { createStore } from "redux";
+import Images from "./reducers/Images";
+import devsToolsEnhancer from "remote-redux-devtools";
+import { Provider } from "react-redux";
+import { loadImages } from "./actions/Images";
+debugger;
+let store = createStore(Images, devsToolsEnhancer());
+loadImages();
 const App = () => (
-  <Router>
-    <Route exact path="/" component={Home} />
-  </Router>
+  <Provider store={store}>
+    <Router>
+      <div className="App">
+        <div className="App-header">
+          <h2>Welcome to Pinterest-clone</h2>
+        </div>
+        <Route exact path="/" component={Home} onEnter={loadImages} />
+      </div>
+    </Router>
+  </Provider>
 );
 
 export default App;

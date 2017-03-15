@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
 import { createStore } from "redux";
@@ -7,16 +7,18 @@ import Images from "./reducers/Images";
 import devsToolsEnhancer from "remote-redux-devtools";
 import { Provider } from "react-redux";
 import { loadImages } from "./actions/Images";
-debugger;
+import Profil from "./components/Profil";
+
 let store = createStore(Images, devsToolsEnhancer());
 const App = () => (
   <Provider store={store}>
     <Router>
       <div className="App">
         <div className="App-header">
-          <h2>Welcome to Pinterest-clone</h2>
+          <h2><Link to="/">Welcome to Pinterest-clone</Link></h2>
         </div>
         <Route exact path="/" component={Home} />
+        <Route exact path="/profil/:id" component={Profil} />
       </div>
     </Router>
   </Provider>

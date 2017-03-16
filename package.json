@@ -3,12 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.1",
+    "express": "^4.15.2",
+    "nconf": "^0.8.4",
+    "oauth": "^0.9.15",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-modal": "^1.7.3",
     "react-redux": "^5.0.3",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
     "react-router-redux": "^5.0.0-alpha.3",
+    "react-stonecutter": "^0.3.4",
     "redux": "^3.6.0"
   },
   "devDependencies": {

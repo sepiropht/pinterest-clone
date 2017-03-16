@@ -4,6 +4,7 @@ const oauth = require("oauth");
 const session = require("cookie-session");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const conf = require("./config");
 
 app.get("/", function(req, res) {
   res.send("Hello World!");
@@ -15,14 +16,14 @@ app.use(cookieParser());
 app.listen(4000, function() {
   console.log("Example app listening on port 4000!");
 });
-
+debugger;
 let oauthManager = new oauth.OAuth(
   "https://api.twitter.com/oauth/request_token",
   "https://api.twitter.com/oauth/access_token",
-  "xLwdUeUNl8TMqRV78tWNLSJYr",
-  "UwGLUxOQwe0iHLlOnbT45V8JxNGcMdbCsl8w2SF1KP4yao6Gow",
+  conf.twitter.app_key,
+  conf.twitter.app_secret,
   "1.0A",
-  "localhost:3000+/login-callback",
+  conf.url + "/login-callback",
   "HMAC-SHA1"
 );
 app.get("/login", function(req, res) {

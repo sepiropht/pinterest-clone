@@ -21,7 +21,6 @@ const App = () => (
         </div>
         <Route exact path="/" component={Home} />
         <Route exact path="/profil/:id" component={Profil} />
-        <Route exact path="/modal/" component={Modal} />
       </div>
     </Router>
   </Provider>

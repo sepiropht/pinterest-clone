@@ -6,7 +6,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import Images from "./reducers/Images";
-let store = createStore(Images, devsToolsEnhancer());
+const preloadedState = window.__PRELOADED_STATE__;
+
+// Allow the passed state to be garbage-collected
+delete window.__PRELOADED_STATE__;
+const store = createStore(Images, preloadedState);
 ReactDOM.render(
   <Provider store={store}>
     <Router><App /></Router>

@@ -14,9 +14,6 @@ const Grid = makeResponsive(measureItems(CSSGrid, { measureImages: true }), {
   minPadding: 100
 });
 
-const mapDispatchToProps = {
-  loadImages: loadImages
-};
 const mapStateToProps = state => ({
   images: state
 });
@@ -24,9 +21,7 @@ class home extends Component {
   constructor(props) {
     super(props);
   }
-  componentWillMount() {
-    this.props.loadImages();
-  }
+  componentWillMount() {}
   render() {
     const ImagesCollection = this.props.images.map((image, index) => (
       <li key={index}>
@@ -53,5 +48,5 @@ class home extends Component {
   }
 }
 
-const Home = connect(mapStateToProps, mapDispatchToProps)(home);
+const Home = connect(mapStateToProps)(home);
 export default Home;

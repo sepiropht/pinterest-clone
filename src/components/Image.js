@@ -1,5 +1,4 @@
 import React from "react";
-import image from "../images.png";
 import { Link } from "react-router-dom";
 const Image = props => (
   <div>
@@ -7,7 +6,11 @@ const Image = props => (
     <h3 className="title">title</h3>
     <div className="footer">
       <Link to="/profil/me">
-        <img className="profile-picture" src={image} alt="nothing" />
+        <img
+          className="profile-picture"
+          src="/static/images.png"
+          alt="nothing"
+        />
       </Link>
       <button className="star" />
     </div>

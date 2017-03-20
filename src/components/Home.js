@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "../App.css";
 import Image from "./Image";
 import { connect } from "react-redux";
 import { loadImages } from "../actions/Images";

@@ -14,7 +14,6 @@ Modal.setAppElement(appElement);
 Modal.setAppElement('#your-app-element');
 
 */
-const appElement = document.getElementById(".App");
 
 const customStyles = {
   content: {
@@ -42,6 +41,9 @@ class modal extends React.Component {
 
   openModal() {
     this.setState({ modalIsOpen: true });
+  }
+  componentDidMount() {
+    Modal.setAppElement(".App");
   }
 
   afterOpenModal() {

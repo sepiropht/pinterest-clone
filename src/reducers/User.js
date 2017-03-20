@@ -8,7 +8,7 @@ function User(state = initialState, action) {
     case LOGGED_IN:
       return Object.assign({}, state, { logged: true }, action.payload);
     case LOGGED_OUT:
-      return initState;
+      return initialState;
     default:
       return state;
   }

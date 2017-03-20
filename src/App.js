@@ -11,10 +11,19 @@ const app = ({ user }) => (
       <h2><Link to="/">Welcome to Pinterest-clone</Link></h2>
       <h3
         style={user.logged ? { display: "none" } : {}}
-        onChange={() =>
-          window.location("http://sepiropht.freeboxos.fr:4000/login")}
+        onClick={() => {
+          window.location = "http://sepiropht.freeboxos.fr:4000/login";
+        }}
       >
         Login
+      </h3>
+      <h3
+        style={user.logged === false ? { display: "none" } : {}}
+        onClick={() => {
+          window.location = "http://sepiropht.freeboxos.fr:4000/logout";
+        }}
+      >
+        Logout
       </h3>
 
     </div>

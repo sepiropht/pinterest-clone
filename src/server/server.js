@@ -47,7 +47,7 @@ app.use(session({ keys: ["foo"] }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 // This is fired every time the server side receives a request
-app.use(handleRender);
+//app.use(handleRender);
 app.use(Express.static(path.join(__dirname, "static")));
 function handleRender(req, res) {
   // Query our mock API asynchronously
@@ -129,7 +129,7 @@ app.get("/login-callback", function(req, res) {
     }
   );
 });
-
+app.get("/", handleRender);
 app.get("/logout", function(req, res) {
   req.session.oauth_verifier = null;
   req.session.oauth_token = null;

@@ -23,7 +23,7 @@ import App from "../App";
 import { createStore } from "redux";
 import Images from "../reducers/Images";
 import User from "../reducers/User";
-import { LOGGED_IN } from "../actions/User";
+import { LOGGED_IN, LOGGED_OUT } from "../actions/User";
 import { StaticRouter as Router } from "react-router-dom";
 import { combineReducers } from "redux";
 const app = new Express();
@@ -138,6 +138,10 @@ app.get("/logout", function(req, res) {
   req.session.oauth_token = null;
   req.session.oauth_secret = null;
   req.session.username = null;
+  store.dispatch({
+    type: LOGGED_OUT,
+    payload: ""
+  });
   res.redirect("/");
 });
 

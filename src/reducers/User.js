@@ -1,14 +1,12 @@
 import { LOGGED_IN } from "../actions/User";
 const initialState = {
-  name: "",
-  logged: false,
-  id: ""
+  logged: false
 };
 
 function User(state = initialState, action) {
   switch (action.type) {
     case LOGGED_IN:
-      return Object.assign({}, state, { logged: true });
+      return Object.assign({}, state, { logged: true }, payload);
     default:
       return state;
   }

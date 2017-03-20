@@ -123,7 +123,10 @@ app.get("/login-callback", function(req, res) {
       } else {
         req.session.username = results.screen_name;
         console.log(results);
-        store.dispatch(LOGGED_IN);
+        store.dispatch({
+          type: LOGGED_IN,
+          payload: results
+        });
         res.redirect("/");
       }
     }

@@ -1,6 +1,6 @@
 export const LOGGED_IN = "LOGGED_IN";
 
-export function loadImages(a) {
+export function loggedIn(a) {
   return {
     payload: a,
     type: LOGGED_IN

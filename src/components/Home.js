@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Image from "./Image";
 import { connect } from "react-redux";
-import { loadImages } from "../actions/Images";
 import {
   CSSGrid,
   measureItems,
@@ -15,7 +14,7 @@ const Grid = makeResponsive(measureItems(CSSGrid, { measureImages: true }), {
 });
 
 const mapStateToProps = state => ({
-  images: state
+  images: state.Images
 });
 class home extends Component {
   constructor(props) {

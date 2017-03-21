@@ -74,8 +74,8 @@ function renderFullPage(html, preloadedState) {
     <html>
       <head>
         <title>Pinterest-clone</title>
-        <link rel="stylesheet" href="/static/App.css">
-        <link rel="stylesheet" href="/static/index.css">
+        <link rel="stylesheet" href="App.css">
+        <link rel="stylesheet" href="index.css">
       </head>
       <body>
         <div id="root">${html}</div>

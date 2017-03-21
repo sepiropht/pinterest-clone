@@ -6,11 +6,7 @@ const Image = props => (
     <h3 className="title">title</h3>
     <div className="footer">
       <Link to="/profil/me">
-        <img
-          className="profile-picture"
-          src="/static/images.png"
-          alt="nothing"
-        />
+        <img className="profile-picture" src="images.png" alt="nothing" />
       </Link>
       <button className="star" />
     </div>

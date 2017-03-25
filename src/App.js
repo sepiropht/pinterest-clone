@@ -18,14 +18,14 @@ const app = ({ user }) => (
         Login
       </h3>
       <h3
-        style={user.logged === false ? { display: "none" } : {}}
+        style={!user.logged ? { display: "none" } : {}}
         onClick={() => {
           window.location = "http://sepiropht.freeboxos.fr:4000/logout";
         }}
       >
         Logout
       </h3>
-
+      <Modal style={!user.logged ? { display: "none!important" } : {}} />
     </div>
     <Route exact path="/" component={Home} />
     <Route exact path="/profil/:id" component={Profil} />

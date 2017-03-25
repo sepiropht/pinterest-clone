@@ -26,12 +26,23 @@ import User from "../reducers/User";
 import { LOGGED_IN, LOGGED_OUT } from "../actions/User";
 import { StaticRouter as Router } from "react-router-dom";
 import { combineReducers } from "redux";
+import mongoose from "mongoose";
+import User from "./models/user";
+import Images from "./modes/image";
+import cuid from "cuid";
+
 const app = new Express();
 const port = 4000;
 const initState = combineReducers({
   Images,
   User
 });
+
+const db = mongoose.connection;
+
+mongoose.connect(
+  "mongodb://root:azerty@ds139480.mlab.com:39480/pinterest-clone"
+);
 
 const store = createStore(initState, devsToolsEnhancer());
 // Use this middleware to set up hot module reloading via webpack.
@@ -46,26 +57,33 @@ app.use(webpackHotMiddleware(compiler));
 app.use(session({ keys: ["foo"] }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-// This is fired every time the server side receives a request
-//app.use(handleRender);
+
 app.use(Express.static(path.join(__dirname, "static")));
 function handleRender(req, res) {
   // Query our mock API asynchronously
   // Render the component to a string
-  const html = renderToString(
-    <Provider store={store}>
-      <Router location={req.url} context={{}}>
-        <App />
-      </Router>
+  Images.getImages((err, Images) => {
+    if (err) console.log(err);
+    store.dispatch({
+      type: LOAD_IMAGES,
+      payload: Images
+    });
 
-    </Provider>
-  );
+    const html = renderToString(
+      <Provider store={store}>
+        <Router location={req.url} context={{}}>
+          <App />
+        </Router>
 
-  // Grab the initial state from our Redux store
-  const finalState = store.getState();
+      </Provider>
+    );
 
-  // Send the rendered page back to the client
-  res.send(renderFullPage(html, finalState));
+    // Grab the initial state from our Redux store
+    const finalState = store.getState();
+
+    // Send the rendered page back to the client
+    res.send(renderFullPage(html, finalState));
+  });
 }
 
 function renderFullPage(html, preloadedState) {
@@ -123,15 +141,28 @@ app.get("/login-callback", function(req, res) {
       } else {
         req.session.username = results.screen_name;
         console.log(results);
-        store.dispatch({
-          type: LOGGED_IN,
-          payload: results
+        User.getUserById(req.user_id, function(err, category) {
+          if (err) {
+            User.create(results, (err, user) => {
+              if (err) console.log(err);
+              store.dispatch({
+                type: LOGGED_IN,
+                payload: results
+              });
+              res.redirect("/");
+            });
+          }
+          store.dispatch({
+            type: LOGGED_IN,
+            payload: results
+          });
+          res.redirect("/");
         });
-        res.redirect("/");
       }
     }
   );
 });
+
 app.get("/", handleRender);
 app.get("/logout", function(req, res) {
   req.session.oauth_verifier = null;
@@ -143,6 +174,28 @@ app.get("/logout", function(req, res) {
     payload: ""
   });
   res.redirect("/");
+});
+app.post("/image", (req, res) => {
+  const newImages = new Images({
+    id: cuid(),
+    title: req.body.title,
+    userId: req.body.user_id,
+    url: req.body.url
+  });
+  Image.create(newImages, function(err, category) {
+    if (err) {
+      console.log(err);
+    }
+    res.json(newImages);
+  });
+});
+
+app.get("/image/:userId", (req, res, next) => {
+  Images.getImagesByUserId(req.params.id, (err, Images) => {
+    if (err) console.log(err);
+
+    res.json(images);
+  });
 });
 
 app.listen(port, error => {

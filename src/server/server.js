@@ -140,11 +140,21 @@ app.get("/login-callback", function(req, res) {
         res.send("error getting access token: " + err);
       } else {
         req.session.username = results.screen_name;
-        //console.log(results);
-        UserModel.getUserById(req.user_id, function(err, category) {
-          if (err) {
-            UserModel.create(results, (err, user) => {
+        UserModel.getUserById(results.user_id, function(err, user) {
+          if (err) console.log(err);
+          console.log("user", user);
+          if (user.length > 0) {
+            store.dispatch({
+              type: LOGGED_IN,
+              payload: results
+            });
+            res.redirect("/");
+          } else {
+            const newUser = new UserModel(results);
+
+            UserModel.create(newUser, (err, user) => {
               if (err) console.log(err);
+              console.log("user was not in base", results);
               store.dispatch({
                 type: LOGGED_IN,
                 payload: results
@@ -152,11 +162,6 @@ app.get("/login-callback", function(req, res) {
               res.redirect("/");
             });
           }
-          store.dispatch({
-            type: LOGGED_IN,
-            payload: results
-          });
-          res.redirect("/");
         });
       }
     }

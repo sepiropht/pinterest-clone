@@ -23,8 +23,8 @@ module.exports.getUsers = function(callback) {
   User.find(callback);
 };
 
-module.exports.getUsersById = function(id, callback) {
-  User.findBy(id, callback);
+module.exports.getUserById = function(id, callback) {
+  User.find(id, callback);
 };
 
 module.exports.getArticlesByUser = function(User, callback) {

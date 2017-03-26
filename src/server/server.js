@@ -62,10 +62,10 @@ app.use(Express.static(path.join(__dirname, "static")));
 function handleRender(req, res) {
   // Query our mock API asynchronously
   // Render the component to a string
-  Images.getImages((err, Images) => {
+  ImageModel.getImages((err, Images) => {
     if (err) console.log(err);
     store.dispatch({
-      type: LOAD_IMAGES,
+      type: "LOAD_IMAGES",
       payload: Images
     });
 

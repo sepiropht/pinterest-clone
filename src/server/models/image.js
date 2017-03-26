@@ -22,7 +22,7 @@ const imageSchema = mongoose.Schema({
 const Image = (module.exports = mongoose.model("Image", imageSchema));
 
 module.exports.getImages = function(callback) {
-  Images.find(callback);
+  Image.find(callback);
 };
 
 module.exports.getImagesByUserId = function(userId, callback) {

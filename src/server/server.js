@@ -27,8 +27,8 @@ import { LOGGED_IN, LOGGED_OUT } from "../actions/User";
 import { StaticRouter as Router } from "react-router-dom";
 import { combineReducers } from "redux";
 import mongoose from "mongoose";
-import User from "./models/user";
-import Images from "./modes/image";
+import UserModel from "./models/user";
+import ImageModel from "./models/image";
 import cuid from "cuid";
 
 const app = new Express();
@@ -57,7 +57,7 @@ app.use(webpackHotMiddleware(compiler));
 app.use(session({ keys: ["foo"] }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-
+app.use(bodyParser.urlencoded());
 app.use(Express.static(path.join(__dirname, "static")));
 function handleRender(req, res) {
   // Query our mock API asynchronously
@@ -140,10 +140,10 @@ app.get("/login-callback", function(req, res) {
         res.send("error getting access token: " + err);
       } else {
         req.session.username = results.screen_name;
-        console.log(results);
-        User.getUserById(req.user_id, function(err, category) {
+        //console.log(results);
+        UserModel.getUserById(req.user_id, function(err, category) {
           if (err) {
-            User.create(results, (err, user) => {
+            UserModel.create(results, (err, user) => {
               if (err) console.log(err);
               store.dispatch({
                 type: LOGGED_IN,
@@ -176,13 +176,12 @@ app.get("/logout", function(req, res) {
   res.redirect("/");
 });
 app.post("/image", (req, res) => {
-  const newImages = new Images({
-    id: cuid(),
+  const newImages = new ImageModel({
     title: req.body.title,
-    userId: req.body.user_id,
+    userId: req.body.userId,
     url: req.body.url
   });
-  Image.create(newImages, function(err, category) {
+  ImageModel.create(newImages, function(err, category) {
     if (err) {
       console.log(err);
     }
@@ -191,7 +190,7 @@ app.post("/image", (req, res) => {
 });
 
 app.get("/image/:userId", (req, res, next) => {
-  Images.getImagesByUserId(req.params.id, (err, Images) => {
+  ImageModel.getImagesByUserId(req.params.id, (err, Images) => {
     if (err) console.log(err);
 
     res.json(images);

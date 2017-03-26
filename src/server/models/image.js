@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
-const imageShema = mongoose.Schema({
-  id: {
-    type: String,
-    require: true
-  },
+const imageSchema = mongoose.Schema({
   title: {
     type: String,
     require: true
@@ -23,7 +19,7 @@ const imageShema = mongoose.Schema({
     default: Date.now
   }
 });
-const Image = (module.exports = mongoose.model("Image", imageShema));
+const Image = (module.exports = mongoose.model("Image", imageSchema));
 
 module.exports.getImages = function(callback) {
   Images.find(callback);
@@ -35,5 +31,6 @@ module.exports.getImagesByUserId = function(userId, callback) {
 };
 
 module.exports.create = function(newImages, callback) {
+  console.log("merdier", newImages);
   newImages.save(callback);
 };

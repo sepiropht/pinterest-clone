@@ -27,7 +27,7 @@ module.exports.getImages = function(callback) {
 
 module.exports.getImagesByUserId = function(userId, callback) {
   var query = { userId: userId };
-  Article.find(query, callback);
+  Image.find(query, callback);
 };
 
 module.exports.create = function(newImages, callback) {

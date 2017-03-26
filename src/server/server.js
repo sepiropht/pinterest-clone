@@ -190,10 +190,10 @@ app.post("/image", (req, res) => {
 });
 
 app.get("/image/:userId", (req, res, next) => {
-  ImageModel.getImagesByUserId(req.params.id, (err, Images) => {
+  ImageModel.getImagesByUserId(req.params.userId, (err, Images) => {
     if (err) console.log(err);
 
-    res.json(images);
+    res.json(Images);
   });
 });
 

@@ -8,19 +8,30 @@ import { createStore } from "redux";
 import Images from "./reducers/Images";
 import User from "./reducers/User";
 import { combineReducers } from "redux";
+import createHistory from "history/createBrowserHistory";
+import {
+  ConnectedRouter,
+  routerReducer,
+  routerMiddleware,
+  push
+} from "react-router-redux";
+
 const preloadedState = window.__PRELOADED_STATE__;
+const history = createHistory();
 
 const app = combineReducers({
-  Images,
-  User
+  Images: Images,
+  User: User,
+  router: routerReducer
 });
 // Allow the passed state to be garbage-collected
 delete window.__PRELOADED_STATE__;
 const store = createStore(app, preloadedState);
 ReactDOM.render(
   <Provider store={store}>
-    <Router><App /></Router>
-
+    <ConnectedRouter history={history}>
+      <Router><App /></Router>
+    </ConnectedRouter>
   </Provider>,
   document.getElementById("root")
 );

@@ -1,17 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const Image = props => (
-  <div>
-    <img className="picture" src={props.img} alt={"nothing"} />
-    <h3 className="title">title</h3>
-    <div className="footer">
-      <Link to="/profil/me">
-        <img className="profile-picture" src="images.png" alt="nothing" />
-      </Link>
-      <button className="star" />
-    </div>
+const Image = props => {
+  return (
+    <div>
+      <img className="picture" src={props.data.url} alt={"nothing"} />
+      <h3 className="title">{props.data.title}</h3>
+      <div className="footer">
+        <Link to={"/profil/" + props.data.userId}>
+          <img className="profile-picture" src="images.png" alt="nothing" />
+        </Link>
+        <button className="star" />
+      </div>
 
-  </div>
-);
+    </div>
+  );
+};
 
 export default Image;

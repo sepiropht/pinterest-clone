@@ -29,13 +29,23 @@ import { combineReducers } from "redux";
 import mongoose from "mongoose";
 import UserModel from "./models/user";
 import ImageModel from "./models/image";
-import cuid from "cuid";
+//import createHistory from "history/createBrowserHistory";
+import {
+  ConnectedRouter,
+  routerReducer,
+  routerMiddleware,
+  push
+} from "react-router-redux";
 
 const app = new Express();
 const port = 4000;
+
+// const history = createHistory();
+
 const initState = combineReducers({
-  Images,
-  User
+  Images: Images,
+  User: User,
+  router: routerReducer
 });
 
 const db = mongoose.connection;
@@ -59,6 +69,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded());
 app.use(Express.static(path.join(__dirname, "static")));
+app.use(handleRender);
 function handleRender(req, res) {
   // Query our mock API asynchronously
   // Render the component to a string
@@ -74,13 +85,11 @@ function handleRender(req, res) {
         <Router location={req.url} context={{}}>
           <App />
         </Router>
-
       </Provider>
     );
 
     // Grab the initial state from our Redux store
     const finalState = store.getState();
-
     // Send the rendered page back to the client
     res.send(renderFullPage(html, finalState));
   });
@@ -96,7 +105,7 @@ function renderFullPage(html, preloadedState) {
         <link rel="stylesheet" href="index.css">
       </head>
       <body>
-        <div id="root">${html}</div>
+        <div id="root">${process.env.NODE_ENV === "production" ? html : `<div>${html}</div>`}</div>
         <script>
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, "\\x3c")}
         </script>
@@ -169,6 +178,7 @@ app.get("/login-callback", function(req, res) {
 });
 
 app.get("/", handleRender);
+app.get("/profil", handleRender);
 app.get("/logout", function(req, res) {
   req.session.oauth_verifier = null;
   req.session.oauth_token = null;

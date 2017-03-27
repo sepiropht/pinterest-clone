@@ -25,10 +25,11 @@ const app = ({ user }) => (
       >
         Logout
       </h3>
+
       <Modal style={!user.logged ? { display: "none!important" } : {}} />
     </div>
     <Route exact path="/" component={Home} />
-    <Route exact path="/profil/:id" component={Profil} />
+    <Route path="/profil/:id" component={Profil} />
   </div>
 );
 const App = connect(mapStateToProps)(app);

@@ -24,7 +24,7 @@ class home extends Component {
   render() {
     const ImagesCollection = this.props.images.map((image, index) => (
       <li key={index}>
-        <Image img={`${image.link}`} alt="img" />
+        <Image data={image} />
       </li>
     ));
     return (

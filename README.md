@@ -1,6 +1,8 @@
 
 # Pinterest-clone
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/sepiropht/pinterest-clone.svg)](https://greenkeeper.io/)
+
 Just a small side project to learn more deeply the universal js stack.
 
 
